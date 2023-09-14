@@ -1,0 +1,7 @@
+{
+  "name": "barangay-crime-compliant-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
