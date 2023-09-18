@@ -9,8 +9,23 @@ how to run the app in ionic
 ionic serve
 
 ---------------------------------------------------------------------------------------------------------------
-how to install cordova
-npm install -g cordova
+how to build and run ionic project correctly
+
+//for adding android files and ios files (YOU ONLY RUN IT ONCE)
+npx cap add android
+npx cap add ios
+
+//for building android and ios
+npx cap sync
+ionic cap build android
+ionic cap build ios
+
+//to run in external device
+ionic cap run android -l --external
+ionic cap run ios -l --external
+
+//if you want to run in web
+ionic serve
 ---------------------------------------------------------------------------------------------------------------
 to install the node_modules and missing files just type in the command prompt (TAKE NOTE: IT MUST BE IN YOUR market-placee folder):
 

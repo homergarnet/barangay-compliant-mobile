@@ -24,3 +24,35 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+
+//for ngx-toastr
+@import 'node_modules/bootstrap/scss/functions';
+@import 'node_modules/bootstrap/scss/variables';
+@import 'node_modules/bootstrap/scss/mixins';
+@import 'node_modules/ngx-toastr/toastr-bs4-alert';
+
+ion-content {
+  --background: #004aad;
+}
+
+.white-text {
+  color: white;
+}
+.c-white-text {
+  color: #e0e4e6;
+}
+
+.c-white-text-2 {
+  color: #d6dadb;
+}
+
+.oval-button {
+  border-radius: 50%; /* Makes the button oval */
+  width: 150px; /* Adjust the width as needed */
+  height: 60px; /* Adjust the height as needed */
+  font-size: 18px; /* Adjust the font size as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
