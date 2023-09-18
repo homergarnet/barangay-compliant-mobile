@@ -1,11 +1,14 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>
-      Google Maps
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="main-container">
+    <ion-img src="assets/images/san-clemente-logo.png" alt="App Logo"></ion-img>
+    <h1 class="white-text">San Clemente Tarlac</h1>
+    <h4 class="c-white-text">Welcome to Mobile Crime and Complaint Management System..</h4>
 
-<ion-content>
-  <div class="map" #map></div>
+    <h6 class="c-white-text-2">
+      a crime and compliant report management system will make Brgy Doclong second
+      crime and complaint management more useful by letting the locals know about the most recent and up-to-date
+      complaints in their community.
+    </h6>
+    <ion-button expand="full" color="primary" class="oval-button" routerLink="/pages/auth/compliant-sign-in">Get Started</ion-button>
+  </div>
 </ion-content>

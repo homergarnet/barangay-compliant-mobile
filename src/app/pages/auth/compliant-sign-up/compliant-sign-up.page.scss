@@ -1,0 +1,111 @@
+swiper-container {
+
+  width: 100%;
+  height: 100%;
+
+}
+
+swiper-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-item {
+  margin-bottom: 20px;
+}
+
+ion-select {
+  width: 100%;
+}
+
+ion-button {
+  margin-top: 20px;
+}
+
+
+ion-card {
+  margin: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.selected-image {
+  max-width: 100%;
+  height: 100px;
+}
+
+// FOR Summary Information START
+
+.profile-content {
+  text-align: center;
+  margin: 16px;
+
+  &.white-text {
+    color: white; /* Set text color to white */
+  }
+
+  &.light-gray-text {
+    color: #ccc; /* Use a light gray color for text */
+  }
+
+  ion-list.no-background {
+    --ion-item-background: none;
+    --ion-item-background-focused: none;
+    --ion-item-background-activated: none;
+  }
+
+  ion-item.no-padding {
+    --ion-item-padding-start: 0; /* Remove padding on the left */
+  }
+
+  ion-item.no-lines {
+    --ion-item-lines: none; /* Remove the lines between items */
+  }
+
+  ion-label.white-text {
+    color: white; /* Set text color to white for ion-label within ion-item */
+  }
+
+  ion-label.light-gray-text {
+    color: #ccc; /* Use a light gray color for ion-label within ion-item */
+  }
+}
+
+.light-gray-text {
+  color: #d8d7d7; /* Use a light gray color for text */
+}
+
+/* already-have-account.component.scss */
+
+.already-have-account {
+  text-align: center;
+  margin-top: 20px;
+
+
+}
+
+.sign-in-button {
+  --background: #3880ff;
+  --color: white;
+  --border-radius: 5px;
+  --padding-start: 20px;
+  --padding-end: 20px;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+  --box-shadow: none;
+  --border-width: 0;
+  font-size: 18px;
+  --ripple-color: transparent;
+
+  &:hover {
+    --background: #0064d3;
+  }
+
+  &:active {
+    --background: #0055b3;
+  }
+}
+
+// FOR Summary Information END

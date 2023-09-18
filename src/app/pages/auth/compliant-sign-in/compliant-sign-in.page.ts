@@ -12,4 +12,11 @@ export class CompliantSignInPage implements OnInit {
   ngOnInit() {
   }
 
+  password: string = '';
+  showPassword: boolean = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
 }

@@ -1,13 +1,335 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>compliant-sign-up</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Sign up</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">compliant-sign-up</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <swiper-container
+    (slidechange)="swiperSlideChanged($event)"
+    [loop]="false"
+    [pagination]="true"
+  >
+  <!-- SWIPER SLIDE 1 -->
+    <swiper-slide>
+      <h2 class="white-text">Personal Information</h2>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label position="stacked">First Name</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Middle Name</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Last Name</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+
+          <ion-grid>
+            <ion-row>
+              <ion-label>Date of Birth</ion-label>
+            </ion-row>
+            <ion-row>
+              <ion-col size="4">
+                <ion-select interface="popover" [(ngModel)]="day" name="day" placeholder="Day">
+                  <ion-select-option *ngFor="let d of days" [value]="d">{{ d }}</ion-select-option>
+                </ion-select>
+              </ion-col>
+              <ion-col size="4">
+                <ion-select interface="popover" [(ngModel)]="month" name="month" placeholder="Month">
+                  <ion-select-option *ngFor="let m of months" [value]="m.MonthNum">{{ m.Month }}</ion-select-option>
+                </ion-select>
+              </ion-col>
+              <ion-col size="4">
+                <ion-select interface="popover" [(ngModel)]="year" name="year" placeholder="Year" (ionChange)="onChangeDayDateYear()">
+                  <ion-select-option *ngFor="let y of years" [value]="y">{{ y }}</ion-select-option>
+                </ion-select>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Age</ion-label>
+          <ion-input type="number" disabled="true">{{ age }}</ion-input>
+        </ion-item>
+      </ion-content>
+      <div class="already-have-account">
+        <p class="white-text">Already have an account?</p>
+        <ion-button class="sign-in-button" expand="full" (click)="redirectToSignIn()"
+          >Sign In</ion-button
+        >
+      </div>
+    </swiper-slide>
+    <!-- SWIPER SLIDE 2 -->
+    <swiper-slide>
+      <h2 class="white-text">Personal Information</h2>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-select interface="popover" name="day" placeholder="Gender">
+            <ion-select-option value="male">Male</ion-select-option>
+            <ion-select-option value="female">Female</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Contact Number</ion-label>
+          <ion-input type="number"></ion-input>
+        </ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <h6 class="white-text">Upload Your Valid Id</h6>
+              <img [src]="imgDisplay" class="selected-image" alt="Selected Image" />
+              <input
+                class="white-text"
+                type="file"
+                (change)="onFileSelected($event)"
+                accept="image/*"
+              />
+            </ion-col>
+            <ion-col size="6">
+              <h6 class="white-text">Upload Your Selfie</h6>
+              <img [src]="imgDisplay2" class="selected-image" alt="Selected Image" />
+              <input
+                class="white-text"
+                type="file"
+                (change)="onFileSelected2($event)"
+                accept="image/*"
+              />
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </ion-content>
+      <div class="already-have-account">
+        <p class="white-text">Already have an account?</p>
+        <ion-button class="sign-in-button" expand="full" (click)="redirectToSignIn()"
+          >Sign In</ion-button
+        >
+      </div>
+    </swiper-slide>
+    <!-- SWIPER SLIDE 3 -->
+    <swiper-slide>
+      <h2 class="white-text">Address Information</h2>
+      <ion-content class="ion-padding">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item lines="none" class="no-padding">
+
+                <ion-checkbox slot="start" class="custom-checkbox"></ion-checkbox>
+                <ion-label class="white-text">
+                  Permanent<br>Residency Address
+
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item lines="none" class="no-padding">
+
+                <ion-checkbox slot="start" class="custom-checkbox"></ion-checkbox>
+                <ion-label class="white-text">
+                  Short-term<br>Residency Address
+
+                </ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-item>
+          <ion-label position="stacked">House/Lot Number</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Street</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Village/Subdivision</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Unit/Floor</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+      </ion-content>
+
+
+      <div class="already-have-account">
+        <p class="white-text">Already have an account?</p>
+        <ion-button class="sign-in-button" expand="full" (click)="redirectToSignIn()"
+          >Sign In</ion-button
+        >
+      </div>
+    </swiper-slide>
+    <!-- SWIPER SLIDE 4 -->
+    <swiper-slide>
+      <h2 class="white-text">Address Information</h2>
+      <ion-content class="ion-padding">
+
+        <ion-item>
+          <ion-label position="stacked">Building</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Province</ion-label>
+          <ion-input type="number" disabled="true">369</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">City/Municipality</ion-label>
+          <ion-input type="number" disabled="true">36913</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Barangay</ion-label>
+          <ion-input type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Zipcode</ion-label>
+          <ion-input type="number"></ion-input>
+        </ion-item>
+      </ion-content>
+    </swiper-slide>
+    <!-- SWIPER SLIDE 5 -->
+    <swiper-slide>
+      <h2 class="white-text">Create a Account to Sign up</h2>
+      <ion-content class="ion-padding">
+
+        <ion-item>
+          <ion-label position="stacked">Email Address</ion-label>
+          <ion-input type="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input type="password"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Confirm Password</ion-label>
+          <ion-input type="password"></ion-input>
+        </ion-item>
+      </ion-content>
+    </swiper-slide>
+    <!-- SWIPER SLIDE 6 -->
+    <swiper-slide>
+      <!-- profile.page.html -->
+
+      <ion-content>
+        <div class="profile-content">
+          <h2 class="white-text">Summary Information</h2>
+          <ion-list class="no-background">
+            <ion-item lines="none" class="no-padding">
+              <ion-label class="white-text"
+                >First Name:
+                <span class="light-gray-text"
+                  >This is some styled text with</span
+                ></ion-label
+              >
+            </ion-item>
+            <ion-item lines="none" class="no-padding">
+              <ion-label class="white-text"
+                >Middle Name:
+                <span class="light-gray-text"
+                  >This is some styled text with</span
+                ></ion-label
+              >
+            </ion-item>
+            <ion-item lines="none" class="no-padding">
+              <ion-label class="white-text"
+                >Last Name:
+                <span class="light-gray-text"
+                  >This is some styled text with</span
+                ></ion-label
+              >
+            </ion-item>
+            <ion-item lines="none" class="no-padding">
+              <ion-label class="white-text"
+                >Date Of Birth:
+                <span class="light-gray-text"
+                  >This is some styled text with</span
+                ></ion-label
+              >
+            </ion-item>
+            <ion-item lines="none" class="no-padding">
+              <ion-label class="white-text"
+                >Age:
+                <span class="light-gray-text"
+                  >This is some styled text with</span
+                ></ion-label
+              >
+            </ion-item>
+            <ion-item lines="none" class="no-padding">
+              <ion-label class="white-text"
+                >Gender:
+                <span class="light-gray-text"
+                  >This is some styled text with</span
+                ></ion-label
+              >
+            </ion-item>
+            <ion-item lines="none" class="no-padding">
+              <ion-label class="white-text"
+                >Contact Number:
+                <span class="light-gray-text"
+                  >This is some styled text with</span
+                ></ion-label
+              >
+            </ion-item>
+            <ion-item lines="none" class="no-padding">
+              <ion-label class="white-text"
+                >Address:
+                <span class="light-gray-text"
+                  >This is some styled text with</span
+                ></ion-label
+              >
+            </ion-item>
+            <ion-item lines="none" class="no-padding">
+              <ion-label class="white-text"
+                >Email Address:
+                <span class="light-gray-text"
+                  >This is some styled text with</span
+                ></ion-label
+              >
+            </ion-item>
+            <ion-item lines="none" class="no-padding">
+              <ion-label class="white-text"
+                >Password:
+                <span class="light-gray-text"
+                  >{{ showPassword? 'my showed password': '*****'}}</span
+                >
+                <ion-icon
+                  slot="end"
+                  name="eye"
+                  (click)="togglePasswordVisibility()"
+                  [color]="showPassword ? 'primary' : 'medium'"
+                ></ion-icon>
+              </ion-label>
+            </ion-item>
+            <ion-item lines="none" class="no-padding">
+
+              <ion-checkbox slot="start" class="custom-checkbox"></ion-checkbox>
+              <ion-label class="white-text">
+                By Selecting "Create account"<br>you are confirming that<br>you have read and agree<br>
+                to San Clemente's Terms and conditions<br>and Private Policy
+
+              </ion-label>
+            </ion-item>
+            <ion-item lines="none" class="no-padding">
+
+              <ion-button expand="full" color="primary" class="oval-button">Sign up</ion-button>
+            </ion-item>
+
+          </ion-list>
+
+          <div class="already-have-account">
+            <p class="white-text">Already have an account?</p>
+            <ion-button class="sign-in-button" expand="full" (click)="redirectToSignIn()"
+              >Sign In</ion-button
+            >
+          </div>
+        </div>
+      </ion-content>
+    </swiper-slide>
+  </swiper-container>
 </ion-content>

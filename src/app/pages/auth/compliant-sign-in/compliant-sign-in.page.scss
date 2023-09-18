@@ -1,29 +1,32 @@
-.main-container {
+ion-img {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+ion-button {
+  width: 80%;
+  max-width: 300px;
+}
+
+ion-item {
+  margin-bottom: 20px;
+}
+
+
+.custom-centering-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
-
-  ion-img {
-    width: 150px;
-    height: 150px;
-    margin-bottom: 20px;
-  }
-
-  h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-
-  p {
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
-
-  ion-button {
-    width: 80%;
-    max-width: 300px;
-  }
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100%; /* Optionally set a fixed height for centering in a container */
 }
