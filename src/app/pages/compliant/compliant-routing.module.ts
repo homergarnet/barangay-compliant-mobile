@@ -4,6 +4,7 @@ import { CrimePage } from './crime/crime.page';
 import { CompliantPage } from './compliant/compliant.page';
 import { LocationPage } from './location/location.page';
 import { AnnouncementPage } from './announcement/announcement.page';
+import { ProfileInformationPage } from './profile-information/profile-information.page';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
     path: 'announcement',
     component: AnnouncementPage,
   },
+  {
+    path: 'profile-information',
+    component: ProfileInformationPage,
+  },
+
 ];
 
 @NgModule({
