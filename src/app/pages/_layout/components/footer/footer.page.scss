@@ -1,0 +1,33 @@
+
+ion-footer {
+  --ion-background-color: #004aad;
+
+}
+
+ion-buttons[slot="start"],
+ion-buttons[slot="end"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Optional: Add spacing between icons */
+}
+
+ion-button {
+  --color: white;
+  --border-radius: 0; /* Optionally remove button border radius */
+  --box-shadow: none; /* Optionally remove button box shadow */
+}
+
+ion-button ion-icon {
+  font-size: 24px; /* Optionally adjust icon size */
+}
+
+.white-icon {
+  color: white !important;
+}
+.center-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}

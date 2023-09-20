@@ -5,7 +5,20 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
+<!--
 
+  Use this endpoint for Dropdown to get all of the reported crime or complaint
+  http://localhost:8001/api/get-manage-crime?page=1&pageSize=10
+
+-->
 <ion-content>
+  <ion-item>
+    <ion-select interface="popover" name="day" placeholder="Complaint Description to add Location">
+      <ion-select-option value="male">Male</ion-select-option>
+
+
+    </ion-select>
+  </ion-item>
   <div class="map" #map></div>
 </ion-content>
+<app-footer></app-footer>

@@ -1,13 +1,27 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>announcement</ion-title>
+    <ion-title>
+      Announcement
+    </ion-title>
   </ion-toolbar>
 </ion-header>
+<!-- <div [innerHTML]="description?.value" *ngIf="this.assetType == 'owned'"></div> -->
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-card *ngFor="let announcement of announcements">
+      <ion-card-header>
+        <ion-card-title>
+          {{ announcement.title }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{ announcement.content }}
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">announcement</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-infinite-scroll (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
+<app-footer></app-footer>

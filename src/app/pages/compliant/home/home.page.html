@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-img src="assets/images/san-clemente-logo.png" alt="App Logo" class="home-img"></ion-img>
+  <!-- Your page content goes here -->
+  <ion-grid>
+    <!-- First Row -->
+    <ion-row>
+      <ion-col size="6" (click)="redirectToCrime()">
+
+        <ion-card>
+          <ion-card-header>
+            <img src="assets/images/handcuffs.png" alt="Image 1">
+          </ion-card-header>
+          <ion-card-content>
+            <ion-card-title>Crime</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" (click)="redirectToCompliant()">
+        <ion-card>
+          <ion-card-header>
+            <img src="assets/images/notes.png" alt="Image 2">
+          </ion-card-header>
+          <ion-card-content>
+            <ion-card-title>Compliant</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- Second Row -->
+    <ion-row>
+      <ion-col size="6" (click)="redirectToLocation()">
+        <ion-card class="card-grid">
+          <ion-card-header>
+            <img src="assets/icon/location-pin.png" alt="Image 3">
+          </ion-card-header>
+          <ion-card-content>
+            <ion-card-title>Location</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" (click)="redirectToAnnouncement()">
+        <ion-card>
+          <ion-card-header>
+            <img src="assets/images/announcement.png" alt="Image 4">
+          </ion-card-header>
+          <ion-card-content>
+            <ion-card-title>Announcement</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<app-footer></app-footer>

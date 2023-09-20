@@ -5,331 +5,709 @@
 </ion-header>
 
 <ion-content>
-  <swiper-container
-    (slidechange)="swiperSlideChanged($event)"
-    [loop]="false"
-    [pagination]="true"
-  >
-  <!-- SWIPER SLIDE 1 -->
-    <swiper-slide>
-      <h2 class="white-text">Personal Information</h2>
-      <ion-content class="ion-padding">
-        <ion-item>
-          <ion-label position="stacked">First Name</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
+  <form [formGroup]="compliantSignUpForm" (ngSubmit)="onSignUp()">
+    <swiper-container
+      (slidechange)="swiperSlideChanged($event)"
+      [loop]="false"
+      [pagination]="true"
+    >
+      <!-- SWIPER SLIDE 1 -->
+      <swiper-slide>
+        <h2 class="white-text">Personal Information</h2>
+        <ion-content class="ion-padding">
+          <ion-item>
+            <ion-label position="stacked">First Name</ion-label>
+            <ion-input type="text" formControlName="firstName"></ion-input>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'First Name is required',
+            control: compliantSignUpForm.controls['firstName']
+          }"
+            ></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'minlength',
+            message: 'First Name should have at least 3 symbols',
+            control: compliantSignUpForm.controls['firstName']
+          }"
+            ></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'maxLength',
+            message: 'First Name should have maximum 30 symbols',
+            control: compliantSignUpForm.controls['firstName']
+          }"
+            ></ng-container>
+          </ion-item>
 
-        <ion-item>
-          <ion-label position="stacked">Middle Name</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Middle Name</ion-label>
+            <ion-input type="text" formControlName="middleName"></ion-input>
+          </ion-item>
 
-        <ion-item>
-          <ion-label position="stacked">Last Name</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-
+          <ion-item>
+            <ion-label position="stacked">Last Name</ion-label>
+            <ion-input type="text" formControlName="lastName"></ion-input>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Last Name is required',
+            control: compliantSignUpForm.controls['lastName']
+          }"
+            ></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'minlength',
+            message: 'Last Name should have at least 3 symbols',
+            control: compliantSignUpForm.controls['lastName']
+          }"
+            ></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'maxLength',
+            message: 'Last Name should have maximum 30 symbols',
+            control: compliantSignUpForm.controls['lastName']
+          }"
+            ></ng-container>
+          </ion-item>
+          <ion-item>
+            <ion-grid>
+              <ion-row>
+                <ion-label>Date of Birth</ion-label>
+              </ion-row>
+              <ion-row>
+                <ion-col size="4">
+                  <ion-select
+                    interface="popover"
+                    formControlName="birthDay"
+                    placeholder="Day"
+                  >
+                    <ion-select-option *ngFor="let d of days" [value]="d"
+                      >{{ d }}</ion-select-option
+                    >
+                  </ion-select>
+                  <ng-container
+                    [ngTemplateOutlet]="formError"
+                    [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'Day is required',
+                  control: compliantSignUpForm.controls['birthDay']
+                }"
+                  ></ng-container>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-select
+                    interface="popover"
+                    formControlName="birthMonth"
+                    placeholder="Month"
+                  >
+                    <ion-select-option
+                      *ngFor="let m of months"
+                      [value]="m.MonthNum"
+                      >{{ m.Month }}</ion-select-option
+                    >
+                  </ion-select>
+                  <ng-container
+                    [ngTemplateOutlet]="formError"
+                    [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'Month is required',
+                  control: compliantSignUpForm.controls['birthMonth']
+                }"
+                  ></ng-container>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-select
+                    interface="popover"
+                    formControlName="birthYear"
+                    placeholder="Year"
+                    (ionChange)="onChangeDayDateYear()"
+                  >
+                    <ion-select-option *ngFor="let y of years" [value]="y"
+                      >{{ y }}</ion-select-option
+                    >
+                  </ion-select>
+                  <ng-container
+                    [ngTemplateOutlet]="formError"
+                    [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'Year is required',
+                  control: compliantSignUpForm.controls['birthYear']
+                }"
+                  ></ng-container>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Age</ion-label>
+            <ion-input type="number" disabled="true"
+              >{{ this.birthAge?.value }}</ion-input
+            >
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Age is required',
+            control: compliantSignUpForm.controls['birthAge']
+          }"
+            ></ng-container>
+          </ion-item>
+        </ion-content>
+        <div class="already-have-account">
+          <p class="white-text">Already have an account?</p>
+          <ion-button
+            class="sign-in-button"
+            expand="full"
+            (click)="redirectToSignIn()"
+            >Sign In</ion-button
+          >
+        </div>
+      </swiper-slide>
+      <!-- SWIPER SLIDE 2 -->
+      <swiper-slide>
+        <h2 class="white-text">Personal Information</h2>
+        <ion-content class="ion-padding">
+          <ion-item>
+            <ion-select
+              interface="popover"
+              formControlName="gender"
+              placeholder="Gender"
+            >
+              <ion-select-option value="male">Male</ion-select-option>
+              <ion-select-option value="female">Female</ion-select-option>
+            </ion-select>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Gender is required',
+            control: compliantSignUpForm.controls['gender']
+          }"
+            ></ng-container>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Contact Number</ion-label>
+            <ion-input
+              type="text"
+              (keypress)="this.formatterService.keyPressNumeric($event)"
+              formControlName="contactNumber"
+            ></ion-input>
+            <span
+              class="text-danger"
+              *ngIf="contactNumber && contactNumber.invalid"
+              >Contact field is invalid</span
+            >
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Contact Number is required',
+            control: compliantSignUpForm.controls['contactNumber']
+          }"
+            ></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'minlength',
+            message: 'Contact Number should have at least 10 symbols',
+            control: compliantSignUpForm.controls['contactNumber']
+          }"
+            ></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'maxLength',
+            message: 'Contact Number should have maximum 20 symbols',
+            control: compliantSignUpForm.controls['contactNumber']
+          }"
+            ></ng-container>
+          </ion-item>
           <ion-grid>
             <ion-row>
-              <ion-label>Date of Birth</ion-label>
-            </ion-row>
-            <ion-row>
-              <ion-col size="4">
-                <ion-select interface="popover" [(ngModel)]="day" name="day" placeholder="Day">
-                  <ion-select-option *ngFor="let d of days" [value]="d">{{ d }}</ion-select-option>
-                </ion-select>
+              <ion-col size="6">
+                <h6 class="white-text">Upload Your Valid Id</h6>
+                <img
+                  [src]="imgDisplay"
+                  class="selected-image"
+                  alt="Selected Image"
+                />
+                <input
+                  class="white-text"
+                  type="file"
+                  formControlName="validId"
+                  (change)="onFileSelected($event)"
+                  accept="image/*"
+                />
+                <ng-container
+                  [ngTemplateOutlet]="formError"
+                  [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'Valid Id is required',
+                control: compliantSignUpForm.controls['validId']
+              }"
+                ></ng-container>
               </ion-col>
-              <ion-col size="4">
-                <ion-select interface="popover" [(ngModel)]="month" name="month" placeholder="Month">
-                  <ion-select-option *ngFor="let m of months" [value]="m.MonthNum">{{ m.Month }}</ion-select-option>
-                </ion-select>
-              </ion-col>
-              <ion-col size="4">
-                <ion-select interface="popover" [(ngModel)]="year" name="year" placeholder="Year" (ionChange)="onChangeDayDateYear()">
-                  <ion-select-option *ngFor="let y of years" [value]="y">{{ y }}</ion-select-option>
-                </ion-select>
+              <ion-col size="6">
+                <h6 class="white-text">Upload Your Selfie</h6>
+                <img
+                  [src]="imgDisplay2"
+                  class="selected-image"
+                  alt="Selected Image"
+                />
+                <input
+                  class="white-text"
+                  type="file"
+                  formControlName="selfieId"
+                  (change)="onFileSelected2($event)"
+                  accept="image/*"
+                />
+                <ng-container
+                  [ngTemplateOutlet]="formError"
+                  [ngTemplateOutletContext]="{
+                validation: 'required',
+                message: 'Selfie Id is required',
+                control: compliantSignUpForm.controls['selfieId']
+              }"
+                ></ng-container>
               </ion-col>
             </ion-row>
           </ion-grid>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Age</ion-label>
-          <ion-input type="number" disabled="true">{{ age }}</ion-input>
-        </ion-item>
-      </ion-content>
-      <div class="already-have-account">
-        <p class="white-text">Already have an account?</p>
-        <ion-button class="sign-in-button" expand="full" (click)="redirectToSignIn()"
-          >Sign In</ion-button
-        >
-      </div>
-    </swiper-slide>
-    <!-- SWIPER SLIDE 2 -->
-    <swiper-slide>
-      <h2 class="white-text">Personal Information</h2>
-      <ion-content class="ion-padding">
-        <ion-item>
-          <ion-select interface="popover" name="day" placeholder="Gender">
-            <ion-select-option value="male">Male</ion-select-option>
-            <ion-select-option value="female">Female</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Contact Number</ion-label>
-          <ion-input type="number"></ion-input>
-        </ion-item>
-        <ion-grid>
-          <ion-row>
-            <ion-col size="6">
-              <h6 class="white-text">Upload Your Valid Id</h6>
-              <img [src]="imgDisplay" class="selected-image" alt="Selected Image" />
-              <input
-                class="white-text"
-                type="file"
-                (change)="onFileSelected($event)"
-                accept="image/*"
-              />
-            </ion-col>
-            <ion-col size="6">
-              <h6 class="white-text">Upload Your Selfie</h6>
-              <img [src]="imgDisplay2" class="selected-image" alt="Selected Image" />
-              <input
-                class="white-text"
-                type="file"
-                (change)="onFileSelected2($event)"
-                accept="image/*"
-              />
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-
-      </ion-content>
-      <div class="already-have-account">
-        <p class="white-text">Already have an account?</p>
-        <ion-button class="sign-in-button" expand="full" (click)="redirectToSignIn()"
-          >Sign In</ion-button
-        >
-      </div>
-    </swiper-slide>
-    <!-- SWIPER SLIDE 3 -->
-    <swiper-slide>
-      <h2 class="white-text">Address Information</h2>
-      <ion-content class="ion-padding">
-        <ion-grid>
-          <ion-row>
-            <ion-col size="6">
-              <ion-item lines="none" class="no-padding">
-
-                <ion-checkbox slot="start" class="custom-checkbox"></ion-checkbox>
-                <ion-label class="white-text">
-                  Permanent<br>Residency Address
-
-                </ion-label>
-              </ion-item>
-            </ion-col>
-            <ion-col size="6">
-              <ion-item lines="none" class="no-padding">
-
-                <ion-checkbox slot="start" class="custom-checkbox"></ion-checkbox>
-                <ion-label class="white-text">
-                  Short-term<br>Residency Address
-
-                </ion-label>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        <ion-item>
-          <ion-label position="stacked">House/Lot Number</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Street</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Village/Subdivision</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Unit/Floor</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-      </ion-content>
-
-
-      <div class="already-have-account">
-        <p class="white-text">Already have an account?</p>
-        <ion-button class="sign-in-button" expand="full" (click)="redirectToSignIn()"
-          >Sign In</ion-button
-        >
-      </div>
-    </swiper-slide>
-    <!-- SWIPER SLIDE 4 -->
-    <swiper-slide>
-      <h2 class="white-text">Address Information</h2>
-      <ion-content class="ion-padding">
-
-        <ion-item>
-          <ion-label position="stacked">Building</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Province</ion-label>
-          <ion-input type="number" disabled="true">369</ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">City/Municipality</ion-label>
-          <ion-input type="number" disabled="true">36913</ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Barangay</ion-label>
-          <ion-input type="number"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Zipcode</ion-label>
-          <ion-input type="number"></ion-input>
-        </ion-item>
-      </ion-content>
-    </swiper-slide>
-    <!-- SWIPER SLIDE 5 -->
-    <swiper-slide>
-      <h2 class="white-text">Create a Account to Sign up</h2>
-      <ion-content class="ion-padding">
-
-        <ion-item>
-          <ion-label position="stacked">Email Address</ion-label>
-          <ion-input type="email"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Password</ion-label>
-          <ion-input type="password"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Confirm Password</ion-label>
-          <ion-input type="password"></ion-input>
-        </ion-item>
-      </ion-content>
-    </swiper-slide>
-    <!-- SWIPER SLIDE 6 -->
-    <swiper-slide>
-      <!-- profile.page.html -->
-
-      <ion-content>
-        <div class="profile-content">
-          <h2 class="white-text">Summary Information</h2>
-          <ion-list class="no-background">
-            <ion-item lines="none" class="no-padding">
-              <ion-label class="white-text"
-                >First Name:
-                <span class="light-gray-text"
-                  >This is some styled text with</span
-                ></ion-label
-              >
-            </ion-item>
-            <ion-item lines="none" class="no-padding">
-              <ion-label class="white-text"
-                >Middle Name:
-                <span class="light-gray-text"
-                  >This is some styled text with</span
-                ></ion-label
-              >
-            </ion-item>
-            <ion-item lines="none" class="no-padding">
-              <ion-label class="white-text"
-                >Last Name:
-                <span class="light-gray-text"
-                  >This is some styled text with</span
-                ></ion-label
-              >
-            </ion-item>
-            <ion-item lines="none" class="no-padding">
-              <ion-label class="white-text"
-                >Date Of Birth:
-                <span class="light-gray-text"
-                  >This is some styled text with</span
-                ></ion-label
-              >
-            </ion-item>
-            <ion-item lines="none" class="no-padding">
-              <ion-label class="white-text"
-                >Age:
-                <span class="light-gray-text"
-                  >This is some styled text with</span
-                ></ion-label
-              >
-            </ion-item>
-            <ion-item lines="none" class="no-padding">
-              <ion-label class="white-text"
-                >Gender:
-                <span class="light-gray-text"
-                  >This is some styled text with</span
-                ></ion-label
-              >
-            </ion-item>
-            <ion-item lines="none" class="no-padding">
-              <ion-label class="white-text"
-                >Contact Number:
-                <span class="light-gray-text"
-                  >This is some styled text with</span
-                ></ion-label
-              >
-            </ion-item>
-            <ion-item lines="none" class="no-padding">
-              <ion-label class="white-text"
-                >Address:
-                <span class="light-gray-text"
-                  >This is some styled text with</span
-                ></ion-label
-              >
-            </ion-item>
-            <ion-item lines="none" class="no-padding">
-              <ion-label class="white-text"
-                >Email Address:
-                <span class="light-gray-text"
-                  >This is some styled text with</span
-                ></ion-label
-              >
-            </ion-item>
-            <ion-item lines="none" class="no-padding">
-              <ion-label class="white-text"
-                >Password:
-                <span class="light-gray-text"
-                  >{{ showPassword? 'my showed password': '*****'}}</span
-                >
-                <ion-icon
-                  slot="end"
-                  name="eye"
-                  (click)="togglePasswordVisibility()"
-                  [color]="showPassword ? 'primary' : 'medium'"
-                ></ion-icon>
-              </ion-label>
-            </ion-item>
-            <ion-item lines="none" class="no-padding">
-
-              <ion-checkbox slot="start" class="custom-checkbox"></ion-checkbox>
-              <ion-label class="white-text">
-                By Selecting "Create account"<br>you are confirming that<br>you have read and agree<br>
-                to San Clemente's Terms and conditions<br>and Private Policy
-
-              </ion-label>
-            </ion-item>
-            <ion-item lines="none" class="no-padding">
-
-              <ion-button expand="full" color="primary" class="oval-button">Sign up</ion-button>
-            </ion-item>
-
-          </ion-list>
-
-          <div class="already-have-account">
-            <p class="white-text">Already have an account?</p>
-            <ion-button class="sign-in-button" expand="full" (click)="redirectToSignIn()"
-              >Sign In</ion-button
-            >
-          </div>
+        </ion-content>
+        <div class="already-have-account">
+          <p class="white-text">Already have an account?</p>
+          <ion-button
+            class="sign-in-button"
+            expand="full"
+            (click)="redirectToSignIn()"
+            >Sign In</ion-button
+          >
         </div>
-      </ion-content>
-    </swiper-slide>
-  </swiper-container>
+      </swiper-slide>
+      <!-- SWIPER SLIDE 3 -->
+      <swiper-slide>
+        <h2 class="white-text">Address Information</h2>
+        <ion-content class="ion-padding">
+          <ion-segment
+            class="segment-radio-buttons"
+            formControlName="residencyType"
+          >
+            <ion-segment-button value="permanent">
+              Permanent<br />Residency Address
+            </ion-segment-button>
+
+            <ion-segment-button value="short term">
+              Short-term<br />Residency Address
+            </ion-segment-button>
+          </ion-segment>
+          <ng-container
+            [ngTemplateOutlet]="formError"
+            [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'Residency Type is required',
+          control: compliantSignUpForm.controls['residencyType']
+        }"
+          ></ng-container>
+          <ion-item>
+            <ion-label position="stacked">House/Lot Number</ion-label>
+            <ion-input type="text" formControlName="houseNo"></ion-input>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'House/Lot Number is required',
+            control: compliantSignUpForm.controls['houseNo']
+          }"
+            ></ng-container>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Street</ion-label>
+            <ion-input type="text" formControlName="street"></ion-input>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Street is required',
+            control: compliantSignUpForm.controls['street']
+          }"
+            ></ng-container>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Village/Subdivision</ion-label>
+            <ion-input type="text" formControlName="village"></ion-input>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Village is required',
+            control: compliantSignUpForm.controls['village']
+          }"
+            ></ng-container>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Unit/Floor</ion-label>
+            <ion-input type="text" formControlName="unitFloor"></ion-input>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Unit Floor is required',
+            control: compliantSignUpForm.controls['unitFloor']
+          }"
+            ></ng-container>
+          </ion-item>
+        </ion-content>
+
+        <div class="already-have-account">
+          <p class="white-text">Already have an account?</p>
+          <ion-button
+            class="sign-in-button"
+            expand="full"
+            (click)="redirectToSignIn()"
+            >Sign In</ion-button
+          >
+        </div>
+      </swiper-slide>
+      <!-- SWIPER SLIDE 4 -->
+      <swiper-slide>
+        <h2 class="white-text">Address Information</h2>
+        <ion-content class="ion-padding">
+          <ion-item>
+            <ion-label position="stacked">Building</ion-label>
+            <ion-input type="text" formControlName="building"></ion-input>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Building is required',
+            control: compliantSignUpForm.controls['building']
+          }"
+            ></ng-container>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Province</ion-label>
+            <ion-input type="number" disabled="true"
+              >{{ this.province?.value }}</ion-input
+            >
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Province is required',
+            control: compliantSignUpForm.controls['province']
+          }"
+            ></ng-container>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">City/Municipality</ion-label>
+            <ion-input type="number" disabled="true"
+              >{{ this.cityMunicipality?.value }}</ion-input
+            >
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'City/Municipality is required',
+            control: compliantSignUpForm.controls['cityMunicipality']
+          }"
+            ></ng-container>
+          </ion-item>
+          <ion-item>
+            <ion-select
+              interface="popover"
+              formControlName="barangay"
+              placeholder="Barangay"
+            >
+              <ion-select-option value="36913001"
+                >testetest </ion-select-option
+              >
+            </ion-select>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Barangay is required',
+            control: compliantSignUpForm.controls['barangay']
+          }"
+            ></ng-container>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Zipcode</ion-label>
+            <ion-input type="number" disabled="true"
+              >{{ this.zipCode?.value }}</ion-input
+            >
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'Zip Code is required',
+              control: compliantSignUpForm.controls['zipCode']
+            }"
+            ></ng-container>
+          </ion-item>
+        </ion-content>
+      </swiper-slide>
+      <!-- SWIPER SLIDE 5 -->
+      <swiper-slide>
+        <h2 class="white-text">Create a Account to Sign up</h2>
+        <ion-content class="ion-padding">
+          <ion-item>
+            <ion-label position="stacked">Email Address</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'Email is required',
+              control: compliantSignUpForm.controls['email']
+            }"
+            ></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+              validation: 'minlength',
+              message: 'Email should have at least 3 symbols',
+              control: compliantSignUpForm.controls['email']
+            }"
+            ></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+              validation: 'maxLength',
+              message: 'Email should have maximum 320 symbols',
+              control: compliantSignUpForm.controls['email']
+            }"
+            ></ng-container>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Username</ion-label>
+            <ion-input type="text" formControlName="username"></ion-input>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Username is required',
+            control: compliantSignUpForm.controls['username']
+          }"
+            ></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'minlength',
+            message: 'Username should have at least 8 symbols',
+            control: compliantSignUpForm.controls['username']
+          }"
+            ></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'maxLength',
+            message: 'Username should have maximum 16 symbols',
+            control: compliantSignUpForm.controls['username']
+          }"
+            ></ng-container>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Password</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Password is required',
+            control: compliantSignUpForm.controls['password']
+          }"
+            ></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'minlength',
+            message: 'Password should have at least 3 symbols',
+            control: compliantSignUpForm.controls['password']
+          }"
+            ></ng-container>
+            <ng-container
+              [ngTemplateOutlet]="formError"
+              [ngTemplateOutletContext]="{
+            validation: 'maxLength',
+            message: 'Password should have maximum 100 symbols',
+            control: compliantSignUpForm.controls['password']
+          }"
+            ></ng-container>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Confirm Password</ion-label>
+            <ion-input
+              type="password"
+              formControlName="confirmPassword"
+            ></ion-input>
+            <span
+              class="text-danger"
+              *ngIf="compliantSignUpForm.errors?.['passwordMismatchError'] && getControl('confirmPassword')?.touched"
+            >
+              Password and Confirm password does not match!
+            </span>
+          </ion-item>
+        </ion-content>
+      </swiper-slide>
+      <!-- SWIPER SLIDE 6 -->
+      <swiper-slide>
+        <!-- profile.page.html -->
+
+        <ion-content>
+          <div class="profile-content">
+            <h2 class="white-text">Summary Information</h2>
+            <ion-list class="no-background">
+              <ion-item lines="none" class="no-padding">
+                <ion-label class="white-text"
+                  >First Name:
+                  <span class="light-gray-text"
+                    >{{ this.firstName?.value }}</span
+                  ></ion-label
+                >
+              </ion-item>
+              <ion-item lines="none" class="no-padding">
+                <ion-label class="white-text"
+                  >Middle Name:
+                  <span class="light-gray-text"
+                    >{{ this.middleName?.value }}</span
+                  ></ion-label
+                >
+              </ion-item>
+              <ion-item lines="none" class="no-padding">
+                <ion-label class="white-text"
+                  >Last Name:
+                  <span class="light-gray-text"
+                    >{{ this.lastName?.value }}</span
+                  ></ion-label
+                >
+              </ion-item>
+              <ion-item lines="none" class="no-padding">
+                <ion-label class="white-text"
+                  >Date Of Birth:
+                  <span class="light-gray-text"
+                    >{{ this.birthMonth?.value + ' ' + this.birthDay?.value + '
+                    ' + this.birthYear?.value }}</span
+                  ></ion-label
+                >
+              </ion-item>
+              <ion-item lines="none" class="no-padding">
+                <ion-label class="white-text"
+                  >Age:
+                  <span class="light-gray-text"
+                    >{{ this.birthAge?.value }}</span
+                  ></ion-label
+                >
+              </ion-item>
+              <ion-item lines="none" class="no-padding">
+                <ion-label class="white-text"
+                  >Gender:
+                  <span class="light-gray-text"
+                    >{{ this.gender?.value }}</span
+                  ></ion-label
+                >
+              </ion-item>
+              <ion-item lines="none" class="no-padding">
+                <ion-label class="white-text"
+                  >Contact Number:
+                  <span class="light-gray-text"
+                    >{{ this.contactNumber?.value }}</span
+                  ></ion-label
+                >
+              </ion-item>
+              <ion-item lines="none" class="no-padding">
+                <ion-label class="white-text"
+                  >Address:
+                  <span class="light-gray-text"
+                    >{{ this.houseNo?.value + ' ' + this.street?.value + ' ' +
+                    this.village?.value + ' ' + this.unitFloor?.value + ' ' +
+                    this.building?.value }}</span
+                  ></ion-label
+                >
+              </ion-item>
+              <ion-item lines="none" class="no-padding">
+                <ion-label class="white-text"
+                  >Email Address: <span class="light-gray-text"></span
+                ></ion-label>
+              </ion-item>
+              <ion-item lines="none" class="no-padding">
+                <ion-label class="white-text"
+                  >Email Address:
+                  <span class="light-gray-text"
+                    >{{ this.email?.value }}</span
+                  ></ion-label
+                >
+              </ion-item>
+              <ion-item lines="none" class="no-padding">
+                <ion-label class="white-text"
+                  >Password:
+                  <span class="light-gray-text"
+                    >{{ showPassword? this.password?.value: '*****'}}</span
+                  >
+                  <ion-icon
+                    slot="end"
+                    name="eye"
+                    (click)="togglePasswordVisibility()"
+                    [color]="showPassword ? 'primary' : 'medium'"
+                  ></ion-icon>
+                </ion-label>
+              </ion-item>
+              <ion-item lines="none" class="no-padding">
+                <ion-checkbox
+                  slot="start"
+                  class="custom-checkbox"
+                  formControlName="termsAndConditions"
+                ></ion-checkbox>
+                <ion-label class="white-text">
+
+                  By Selecting "Create account"<br />you are confirming that<br />you
+                  have read and agree<br />
+                  to San Clemente's Terms and conditions<br />and Private Policy
+                </ion-label>
+              </ion-item>
+              <ion-item lines="none" class="no-padding">
+                <ion-button expand="full" color="primary" type="submit"
+                  >Sign up</ion-button
+                >
+              </ion-item>
+            </ion-list>
+
+            <div class="already-have-account">
+              <p class="white-text">Already have an account?</p>
+              <ion-button
+                class="sign-in-button"
+                expand="full"
+                (click)="redirectToSignIn()"
+                >Sign In</ion-button
+              >
+            </div>
+          </div>
+        </ion-content>
+      </swiper-slide>
+    </swiper-container>
+  </form>
 </ion-content>
+
+<ng-template
+  #formError
+  let-control="control"
+  let-message="message"
+  let-validation="validation"
+>
+  <ng-container
+    *ngIf="control.hasError(validation) && (control.dirty || control.touched)"
+  >
+    <div class="fv-plugins-message-container">
+      <div class="fv-help-block">
+        <span class="text-danger">{{ message }}</span>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

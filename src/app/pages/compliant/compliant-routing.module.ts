@@ -5,6 +5,7 @@ import { CompliantPage } from './compliant/compliant.page';
 import { LocationPage } from './location/location.page';
 import { AnnouncementPage } from './announcement/announcement.page';
 import { ProfileInformationPage } from './profile-information/profile-information.page';
+import { HomePage } from './home/home.page';
 
 const routes: Routes = [
   {
@@ -27,6 +28,11 @@ const routes: Routes = [
     path: 'profile-information',
     component: ProfileInformationPage,
   },
+  {
+    path: 'home',
+    component: HomePage,
+  },
+
 
 ];
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  redirectToHome() {
+    this.router.navigate(['/pages/compliant/home']);
+  }
+
+  redirectToProfileInformation() {
+    this.router.navigate(['/pages/compliant/profile-information']);
   }
 
 }

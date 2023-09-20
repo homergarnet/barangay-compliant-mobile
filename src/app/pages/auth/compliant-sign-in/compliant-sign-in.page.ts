@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-compliant-sign-in',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompliantSignInPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router,) { }
 
   ngOnInit() {
   }
@@ -17,6 +18,10 @@ export class CompliantSignInPage implements OnInit {
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
+  }
+
+  redirectToSignUp(): void {
+    this.router.navigate(['/pages/auth/compliant-sign-up']);
   }
 
 }

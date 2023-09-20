@@ -1,13 +1,40 @@
-<ion-header [translucent]="true">
+<ion-footer>
   <ion-toolbar>
-    <ion-title>footer</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="redirectToHome()">
+        <ion-icon name="home" class="white-icon"></ion-icon>
+      </ion-button>
+      <!-- <ion-button>
+        <ion-icon name="heart" class="white-icon"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="search" class="white-icon"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="person" class="white-icon"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="settings" class="white-icon"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+    <ion-buttons class="center-button">
+      <ion-button (click)="redirectToProfileInformation()">
+        <ion-icon name="person" class="white-icon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <!-- <ion-button>
+        <ion-icon name="heart"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="search"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="person"></ion-icon>
+      </ion-button> -->
+      <ion-button>
+        <ion-icon name="menu" class="white-icon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">footer</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+</ion-footer>

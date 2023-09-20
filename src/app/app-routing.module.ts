@@ -5,7 +5,7 @@ import { HasVisitedGuard } from './pages/auth/guards/has-visited.guard';
 const routes: Routes = [
   {
     path: 'home',
-    // canActivate: [HasVisitedGuard],
+    canActivate: [HasVisitedGuard],
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {

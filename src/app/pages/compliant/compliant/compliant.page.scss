@@ -1,0 +1,21 @@
+.media-element {
+  width: 100%; /* Adjust the desired width */
+  height: 100px; /* Adjust the desired height */
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
+  display: block; /* Remove any inline styling on the media elements */
+  margin: 0 auto; /* Center the media elements horizontally */
+}
+
+/* Set up the 3-column, 2-row grid layout */
+.file-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  grid-gap: 10px; /* Adjust the gap between cells as needed */
+}
+
+/* Style each file preview cell */
+.file-preview {
+  // border: 1px solid #ddd; /* Add borders to separate cells */
+  padding: 10px; /* Add padding to space out the content */
+  text-align: center; /* Center the content horizontally */
+}

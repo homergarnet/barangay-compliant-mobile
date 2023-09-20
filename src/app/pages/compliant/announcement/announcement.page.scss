@@ -1,0 +1,21 @@
+ion-card {
+  background-color: transparent;
+  margin-bottom: 20px; /* Adjust the spacing between cards as needed */
+  color: white; /* Add this line to make the text white */
+}
+
+ion-content {
+  --ion-background-color: transparent;
+}
+
+ion-card-header {
+  color: white; /* Add this line to make the header text white */
+}
+
+ion-card-content {
+  color: white; /* Add this line to make the content text white */
+}
+
+ion-card-title {
+  color: white; /* Add this line to make the content text white */
+}

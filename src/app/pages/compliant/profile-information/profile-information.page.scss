@@ -1,0 +1,14 @@
+.profile-card {
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+
+  ion-card-header {
+    background-color: #007bff;
+    color: white;
+  }
+
+  ion-card-content ion-item {
+    --ion-item-text-color: #007bff;
+  }
+}

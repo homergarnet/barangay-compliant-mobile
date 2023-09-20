@@ -1,3 +1,7 @@
+to install the node_modules and missing files just type in the command prompt (TAKE NOTE: IT MUST BE IN YOUR market-placee folder):
+
+npm install  --legacy-peer-deps
+---------------------------------------------------------------------------------------------------------------
 How to install ionic:
 npm install -g ionic
 ---------------------------------------------------------------------------------------------------------------

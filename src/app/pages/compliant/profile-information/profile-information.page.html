@@ -1,13 +1,42 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>profile-information</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Profile Information</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">profile-information</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-card class="profile-card">
+    <img src="assets/images/screen1.jpeg" alt="Profile Picture">
+    <ion-card-header>
+      <ion-card-title>
+        John Doe
+      </ion-card-title>
+      <!-- <ion-card-subtitle>
+        UI/UX Designer
+      </ion-card-subtitle> -->
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        Date of Birth: 03-28-2000
+      </ion-item>
+      <ion-item>
+        Age: 23
+      </ion-item>
+      <ion-item>
+        Gender: Male
+      </ion-item>
+      <ion-item>
+        Contact Number: 09123456789
+      </ion-item>
+      <ion-item>
+        Address: My Address street1
+      </ion-item>
+      <ion-button expand="full" color="danger">
+        Logout
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Other profile information can be added here -->
 </ion-content>
+<app-footer></app-footer>
