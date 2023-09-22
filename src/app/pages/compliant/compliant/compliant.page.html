@@ -1,44 +1,86 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Compliant Report</ion-title>
+    <ion-title>Crime Report</ion-title>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content class="ion-padding">
-  <h2 class="white-text">Report Compliant</h2>
-  <ion-item>
-    <ion-select interface="popover" name="day" placeholder="Type of Compliant">
-      <ion-select-option value="male">Male</ion-select-option>
-
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating">Report Compliant Description</ion-label>
-    <ion-textarea rows="5"></ion-textarea>
-  </ion-item>
-  <ion-item>
-    <input type="file" accept="image/*, video/*" (change)="onFilesSelected($event)" #fileInput multiple hidden>
-
-    <ion-button expand="full" (click)="fileInput.click()" [disabled]="files.length >= 5">Select Files</ion-button>
-
-    <div *ngIf="files.length > 0" class="file-grid">
-      <div *ngFor="let file of files" class="file-preview">
-        <button ion-button clear class="close-button" (click)="removeFile(file)">X</button>
-        <ng-container [ngSwitch]="file.type">
-          <img *ngSwitchCase="'image/jpeg'" [src]="file.dataURL" alt="{{ file.name }}" class="media-element">
-          <img *ngSwitchCase="'image/jpg'" [src]="file.dataURL" alt="{{ file.name }}" class="media-element">
-          <img *ngSwitchCase="'image/png'" [src]="file.dataURL" alt="{{ file.name }}" class="media-element">
-          <video *ngSwitchCase="'video/mp4'" [src]="file.dataURL" controls class="media-element"></video>
-          <p *ngSwitchDefault>Unsupported file type: {{ file.name }}</p>
-        </ng-container>
-      </div>
-    </div>
-  </ion-item>
-  <ion-item lines="none" class="no-padding">
-
-    <ion-button expand="full" color="primary" class="oval-button">Submit</ion-button>
-  </ion-item>
-
+  <form [formGroup]="crimeForm" (ngSubmit)="onCreateCrime()">
+    <h2 class="white-text">Report Complaint</h2>
+    <ion-item>
+      <ion-select
+        interface="popover"
+        placeholder="Type of Complaint"
+        formControlName="crimeCompliantId"
+      >
+        <ion-select-option
+          *ngFor="let crimeCompliant of crimeCompliantList"
+          value="{{ crimeCompliant.Id }}"
+          >{{ crimeCompliant.Title }}</ion-select-option
+        >
+      </ion-select>
+      <ng-container
+        [ngTemplateOutlet]="formError"
+        [ngTemplateOutletContext]="{
+    validation: 'required',
+    message: 'Type of Complaint is required',
+    control: crimeForm.controls['crimeCompliantId']
+  }"
+      ></ng-container>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Report Complaint Description</ion-label>
+      <ion-textarea rows="5" formControlName="description"></ion-textarea>
+      <ng-container
+        [ngTemplateOutlet]="formError"
+        [ngTemplateOutletContext]="{
+  validation: 'required',
+  message: 'Report Complaint Description is required',
+  control: crimeForm.controls['description']
+}"
+      ></ng-container>
+    </ion-item>
+    <ion-item>
+      <ngx-dropzone (change)="onSelectMultipleFile($event)">
+        <ngx-dropzone-label
+          >Click here or drop here to upload!</ngx-dropzone-label
+        >
+        <ngx-dropzone-preview
+          *ngFor="let f of files"
+          [removable]="true"
+          (removed)="onRemove(f)"
+        >
+          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        </ngx-dropzone-preview>
+      </ngx-dropzone>
+    </ion-item>
+    <ion-item lines="none" class="no-padding">
+      <span class="text-danger" *ngIf="this.isCrimeImageVideo?.value === false"
+        >Atleast one video or one image is required and not more than 5
+        items</span
+      >
+    </ion-item>
+    <ion-item lines="none" class="no-padding">
+      <ion-button expand="full" color="primary" type="submit"
+        >Submit</ion-button
+      >
+    </ion-item>
+  </form>
 </ion-content>
 <app-footer></app-footer>
+<ng-template
+  #formError
+  let-control="control"
+  let-message="message"
+  let-validation="validation"
+>
+  <ng-container
+    *ngIf="control.hasError(validation) && (control.dirty || control.touched)"
+  >
+    <div class="fv-plugins-message-container">
+      <div class="fv-help-block">
+        <span class="text-danger">{{ message }}</span>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

@@ -12,13 +12,14 @@
 
 -->
 <ion-content>
-  <ion-item>
-    <ion-select interface="popover" name="day" placeholder="Complaint Description to add Location">
-      <ion-select-option value="male">Male</ion-select-option>
+  <form [formGroup]="locationForm">
+    <ion-item>
+      <ion-select interface="popover" (ionChange)="onChangeLocationDropdown()" placeholder="Complaint Description to add Location" formControlName="locationDescriptionDropdown">
+        <ion-select-option *ngFor="let locationDropdown of locationDropdownList" value="{{ locationDropdown.ReportId }}">{{ locationDropdown.Description }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="map" #map></div>
+  </form>
 
-
-    </ion-select>
-  </ion-item>
-  <div class="map" #map></div>
 </ion-content>
 <app-footer></app-footer>

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { AnnouncementService } from 'src/app/services/announcement.service';
+import { ToastrCustomService } from 'src/app/services/toastr-custom.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-announcement',
@@ -8,31 +12,87 @@ import { Component, OnInit } from '@angular/core';
 export class AnnouncementPage implements OnInit {
 
   announcements = [];
-  currentPage = 1;
+  announcementList: any = [];
+  currentPage: number = 1;
+  resultPerPage: number = 10;
+  totalAnnouncementCount: number = 0;
 
-  constructor() {
+  constructor(
+
+    private announcementService: AnnouncementService,
+    private toastrCustomService: ToastrCustomService,
+    private spinner: NgxSpinnerService,
+
+  ) {
     this.loadData(null);
   }
 
   ngOnInit(): void {
+    this.initialAnnouncement();
+  }
 
+  initialAnnouncement(
+    currentPageVal: number = 1,
+    resultPerPageVal: number = 3
+  ): void {
+    this.spinner.show();
+
+    this.announcementService
+      .announcementList(
+        '',
+        currentPageVal == 0 ? this.currentPage : currentPageVal,
+        resultPerPageVal == 0 ? this.resultPerPage : resultPerPageVal
+      )
+      .subscribe(
+        (res) => {
+          let result: any = res;
+          this.totalAnnouncementCount = result.AnnouncementTotalCount;
+          // console.log("result: ", result)
+          result.AnnouncementDescription.forEach((item, index)=>{
+
+            this.announcementList.push({
+              Id: item.Id,
+              Description: item.Description,
+              DateTimeCreated: item.DateTimeCreated,
+            });
+          })
+          this.currentPage++;
+
+          this.spinner.hide();
+        },
+        (error) => {
+          this.spinner.hide();
+          Swal.fire({
+            title: 'Error',
+            text: error,
+            icon: 'warning',
+            customClass: 'smaller-swal', // Apply the custom class here
+            showCancelButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+            heightAuto: false,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Handle the OK button click
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+              // Handle the Cancel button click
+            }
+          });
+        }
+      );
   }
 
   loadData(event) {
     // Simulate loading data from an API or other source
     setTimeout(() => {
-      for (let i = 0; i < 3; i++) {
-        this.announcements.push({
-          title: `Announcement ${this.announcements.length + 1}`,
-          content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        });
-      }
+
+      this.initialAnnouncement(0);
 
       if (event) {
         event.target.complete();
       }
 
-      if (this.currentPage >= 3) {
+      if (this.currentPage >= this.totalAnnouncementCount / 3) {
         event.target.disabled = true;
       }
 

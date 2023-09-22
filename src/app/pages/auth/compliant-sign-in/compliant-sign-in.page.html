@@ -1,34 +1,43 @@
 <!-- profile.page.html -->
 
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title> Sign in </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  <form [formGroup]="loginForm" (ngSubmit)="sampleLogin()">
     <div class="sign-in-main-container">
-      <ion-img src="assets/images/san-clemente-logo.png" alt="App Logo"></ion-img>
+      <ion-img
+        src="assets/images/san-clemente-logo.png"
+        alt="App Logo"
+      ></ion-img>
       <h4 class="c-white-text">Mobile Crime and Complaint Management System</h4>
     </div>
     <ion-item>
-      <ion-label position="stacked">Email Address</ion-label>
-      <ion-input type="email"></ion-input>
+      <ion-label position="stacked">Username</ion-label>
+      <ion-input type="text" formControlName="username"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Password</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input type="password" formControlName="password"></ion-input>
     </ion-item>
     <div class="sign-in-main-container">
-      <ion-button expand="full" color="primary" class="oval-button">SIGN IN</ion-button>
+      <ion-button expand="full" color="primary" type="submit"
+        >SIGN IN</ion-button
+      >
       <h1 class="white-text">San Clemente, Tarlac</h1>
     </div>
 
     <div class="already-have-account">
       <p class="white-text">Dont have an account?</p>
-      <ion-button class="sign-in-button" expand="full" (click)="redirectToSignUp()"
+      <ion-button
+        class="sign-in-button"
+        expand="full"
+        (click)="redirectToSignUp()"
         >Sign Up</ion-button
       >
     </div>
+  </form>
 </ion-content>
-

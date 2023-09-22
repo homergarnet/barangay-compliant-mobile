@@ -7,6 +7,7 @@ import { FormatterService } from 'src/app/services/formatter.service';
 import { ToastrCustomService } from 'src/app/services/toastr-custom.service';
 import { environment } from 'src/environments/environment';
 import { passwordMatch } from 'src/validators/passwordMatch';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-compliant-sign-up',
   templateUrl: './compliant-sign-up.page.html',
@@ -213,6 +214,23 @@ export class CompliantSignUpPage implements OnInit {
 
   ngOnInit(): void {
 
+    // Swal.fire({
+    //   title: 'Custom Sized SweetAlert',
+    //   text: 'This is a smaller SweetAlert that fits on the screen.',
+    //   icon: 'info',
+    //   customClass: 'smaller-swal', // Apply the custom class here
+    //   showCancelButton: true,
+    //   confirmButtonText: 'OK',
+    //   cancelButtonText: 'Cancel',
+    //   heightAuto: false
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     // Handle the OK button click
+    //   } else if (result.dismiss === Swal.DismissReason.cancel) {
+    //     // Handle the Cancel button click
+    //   }
+    // });
+
   }
 
   onChangeDayDateYear(): void {
@@ -293,7 +311,12 @@ export class CompliantSignUpPage implements OnInit {
 
       }, error => {
 
-        this.toastrCustomService.showError("teatstetsat", "Error");
+        if(error.error === "User Already Exist") {
+          this.toastrCustomService.showError(error.error, "Error");
+        } else {
+          this.toastrCustomService.showError("Unavailable to use app", "Error");
+        }
+
         // if(error.error.err_msg == "User already exists.") {
 
         //   Swal.fire("Warning", "User already exist", "warning");

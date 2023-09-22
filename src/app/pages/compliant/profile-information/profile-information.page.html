@@ -6,34 +6,27 @@
 
 <ion-content class="ion-padding">
   <ion-card class="profile-card">
-    <img src="assets/images/screen1.jpeg" alt="Profile Picture">
+    <img [src]="API_URL + userInformation.SelfieIdImage" alt="Profile Picture" />
     <ion-card-header>
       <ion-card-title>
-        John Doe
+        <!-- {{ userInformation.FirstName + ' ' + userInformation.MiddleName + ' ' + userInformation.LastName }} -->
+        {{ userInformation.FirstName }}
       </ion-card-title>
       <!-- <ion-card-subtitle>
         UI/UX Designer
       </ion-card-subtitle> -->
     </ion-card-header>
     <ion-card-content>
+      <ion-item> Date of Birth: {{ userInformation.BirthDateStr }} </ion-item>
+      <ion-item> Age: {{ userInformation.BirthDateStr | age }} </ion-item>
+      <ion-item> Gender: {{ userInformation.Gender }} </ion-item>
+      <ion-item> Contact Number: {{ userInformation.Phone }} </ion-item>
       <ion-item>
-        Date of Birth: 03-28-2000
+        {{ userInformation.HouseNo + ' ' + userInformation.Street + ' ' +
+        userInformation.Village + ' ' + userInformation.UnitFloor + ' ' +
+        userInformation.Building}}
       </ion-item>
-      <ion-item>
-        Age: 23
-      </ion-item>
-      <ion-item>
-        Gender: Male
-      </ion-item>
-      <ion-item>
-        Contact Number: 09123456789
-      </ion-item>
-      <ion-item>
-        Address: My Address street1
-      </ion-item>
-      <ion-button expand="full" color="danger">
-        Logout
-      </ion-button>
+      <ion-button expand="full" color="danger" (click)="onCompliantLogout()"> Logout </ion-button>
     </ion-card-content>
   </ion-card>
 

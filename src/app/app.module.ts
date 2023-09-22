@@ -7,12 +7,17 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { DatePipe } from '@angular/common';
+import { CompliantTokenInterceptorService } from './services/compliant-token-interceptor.service';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -28,7 +33,28 @@ import { IonicStorageModule } from '@ionic/storage-angular';
     }),
     HttpClientModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    DatePipe,
+    // {
+
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AdminTokenInterceptorService,
+    //   multi: true
+    // },
+    // {
+
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: BarangayTokenInterceptorService,
+    //   multi: true
+    // },
+    {
+
+      provide: HTTP_INTERCEPTORS,
+      useClass: CompliantTokenInterceptorService,
+      multi: true
+    },
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

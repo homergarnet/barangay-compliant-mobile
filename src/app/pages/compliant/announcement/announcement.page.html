@@ -1,21 +1,21 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header >
+  <ion-toolbar color="primary">
     <ion-title>
       Announcement
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<!-- <div [innerHTML]="description?.value" *ngIf="this.assetType == 'owned'"></div> -->
+
 <ion-content class="ion-padding">
   <ion-list>
-    <ion-card *ngFor="let announcement of announcements">
+    <ion-card *ngFor="let announcement of announcementList">
       <ion-card-header>
-        <ion-card-title>
+        <!-- <ion-card-title>
           {{ announcement.title }}
-        </ion-card-title>
+        </ion-card-title> -->
       </ion-card-header>
       <ion-card-content>
-        {{ announcement.content }}
+        <div [innerHTML]="announcement.Description"></div>
       </ion-card-content>
     </ion-card>
   </ion-list>
