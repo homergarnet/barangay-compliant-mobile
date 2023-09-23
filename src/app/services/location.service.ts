@@ -33,4 +33,25 @@ export class LocationService {
 
   }
 
+  createLocation(locationForm: any, latLong: any): Observable<any> {
+    return this.http.post(this.API_URL + 'api/create-location',
+    {
+      Lat: latLong.lat,
+      Long: latLong.lng,
+      Description: '',
+      CrimeCompliantReportId: locationForm.locationDescriptionDropdown,
+
+    }, { ...httpOptions });
+  }
+
+  updateLocation(locationForm: any, latLong: any): Observable<any> {
+    return this.http.put(this.API_URL + 'api/update-location',
+    {
+      Lat: latLong.lat,
+      Long: latLong.lng,
+      CrimeCompliantReportId: locationForm.locationDescriptionDropdown,
+
+    }, { ...httpOptions });
+  }
+
 }
