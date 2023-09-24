@@ -394,10 +394,13 @@
             ></ng-container>
           </ion-item>
           <ion-item>
-            <ion-label position="stacked">Province</ion-label>
-            <ion-input type="number" disabled="true"
-              >{{ this.province?.value }}</ion-input
+            <ion-select
+              interface="popover"
+              formControlName="province"
+              placeholder="Province"
             >
+              <ion-select-option value="369">Tarlac</ion-select-option>
+            </ion-select>
             <ng-container
               [ngTemplateOutlet]="formError"
               [ngTemplateOutletContext]="{
@@ -408,10 +411,13 @@
             ></ng-container>
           </ion-item>
           <ion-item>
-            <ion-label position="stacked">City/Municipality</ion-label>
-            <ion-input type="number" disabled="true"
-              >{{ this.cityMunicipality?.value }}</ion-input
+            <ion-select
+              interface="popover"
+              formControlName="cityMunicipality"
+              placeholder="City/Municipality"
             >
+              <ion-select-option value="36913">San Clemente</ion-select-option>
+            </ion-select>
             <ng-container
               [ngTemplateOutlet]="formError"
               [ngTemplateOutletContext]="{
