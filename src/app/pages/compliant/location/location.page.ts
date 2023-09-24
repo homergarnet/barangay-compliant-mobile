@@ -21,7 +21,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class LocationPage implements OnInit {
   @ViewChild('map', { static: true }) mapElementRef: ElementRef;
   googleMaps: any;
-  center = { lat: 15.447, lng: 120.4696 };
+  center = { lat: 15.7081, lng: 120.3692 };
   map: any;
   mapClickListener: any;
   markerClickListener: any;
