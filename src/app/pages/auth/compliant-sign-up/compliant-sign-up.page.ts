@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -79,6 +79,9 @@ export class CompliantSignUpPage implements OnInit {
 
   validIdFile: any;
   selfieIdFile: any;
+
+  @ViewChild('inputFile', { static: true }) inputFileVar: ElementRef;
+  @ViewChild('inputFile2', { static: true }) inputFileVar2: ElementRef;
 
   compliantSignUpForm: FormGroup = new FormGroup({
 
@@ -305,6 +308,9 @@ export class CompliantSignUpPage implements OnInit {
       this.spinner.show();
       this.autService.userRegistration(this.compliantSignUpForm.getRawValue(),this.validIdFile,this.selfieIdFile).subscribe(res => {
 
+        this.imgDisplay = environment.imgNoImageDisplay;
+        this.imgDisplay2 = environment.imgNoImageDisplay;
+        this.resetFields();
         this.toastrCustomService.showSuccess("Account Created Successfully", "Success");
         this.router.navigate(['/pages/auth/compliant-sign-in']);
         this.spinner.hide();
@@ -360,6 +366,38 @@ export class CompliantSignUpPage implements OnInit {
     } else {
       console.log('Checkbox is unchecked');
     }
+  }
+
+  resetFields() {
+    this.inputFileVar.nativeElement.value = '';
+    this.inputFileVar2.nativeElement.value = '';
+    this.compliantSignUpForm.setValue({
+      firstName: '',
+      middleName: '',
+      lastName : '',
+      birthMonth : '',
+      birthDay : '',
+      birthYear : '',
+      birthAge : '',
+      gender : '',
+      contactNumber : '',
+      validId : '',
+      selfieId : '',
+      residencyType : '',
+      houseNo : '',
+      street : '',
+      village : '',
+      unitFloor : '',
+      building : '',
+      province : '',
+      cityMunicipality : '',
+      barangay : '',
+      zipCode : '',
+      email : '',
+      username : '',
+      password : '',
+      confirmPassword : '',
+    });
   }
 
   get firstName() {
