@@ -279,7 +279,7 @@ export class LocationPage implements OnInit {
     this.markers.push(marker);
 
     if (this.isPresentActionSheet) {
-      this.presentActionSheet();
+      // this.presentActionSheet();
     }
 
     this.isPresentActionSheet = true;

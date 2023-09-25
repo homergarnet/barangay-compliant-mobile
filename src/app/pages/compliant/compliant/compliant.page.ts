@@ -234,6 +234,7 @@ export class CompliantPage implements OnInit {
         crimeCompliantId: '', description: '', isCrimeImageVideo: false
       }
     );
+    this.files = null;
   }
 
   get isCrimeImageVideo() {
