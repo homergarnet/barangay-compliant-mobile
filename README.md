@@ -16,10 +16,12 @@ ionic serve
 how to build and run ionic project correctly
 
 //for adding android files and ios files (YOU ONLY RUN IT ONCE)
+
 npx cap add android
 npx cap add ios
 
 //for building android and ios
+ionic build
 ionic cap build android or
 ionic cap build ios
 npx cap sync
@@ -32,6 +34,11 @@ ionic cap run ios -l --external
 
 //if you want to run in web
 ionic serve
+
+ionic cap run android --public-host=<your-host-in-ipconfig-cmd>
+//to see debug
+chrome://inspect/#devices
+192.168.1.3
 ---------------------------------------------------------------------------------------------------------------
 to install the node_modules and missing files just type in the command prompt (TAKE NOTE: IT MUST BE IN YOUR market-placee folder):
 

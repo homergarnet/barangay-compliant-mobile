@@ -7,6 +7,7 @@ import { AnnouncementPage } from './announcement/announcement.page';
 import { ProfileInformationPage } from './profile-information/profile-information.page';
 import { HomePage } from './home/home.page';
 import { CompliantGuard } from '../auth/guards/compliant.guard';
+import { ReportHistoryPage } from './report-history/report-history.page';
 
 const routes: Routes = [
   {
@@ -39,6 +40,12 @@ const routes: Routes = [
     component: HomePage,
     canActivate: [CompliantGuard]
   },
+  {
+    path: 'report-history',
+    component: ReportHistoryPage,
+    canActivate: [CompliantGuard]
+  },
+
 
 
 ];

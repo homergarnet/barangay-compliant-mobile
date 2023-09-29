@@ -1,0 +1,32 @@
+/* table-page.page.scss */
+
+.table-container {
+  overflow-x: auto; /* Enable horizontal scrolling */
+  white-space: nowrap; /* Prevent text from wrapping */
+  max-width: 100%; /* Ensure the table doesn't overflow its container */
+}
+
+/* Optional: Add some styling to the table headers or cells */
+table {
+  width: 100%; /* Ensure the table takes up the full width of the container */
+}
+
+th {
+  padding: 8px;
+  border: 1px solid #ccc;
+  background-color: rgb(56,128,255);
+}
+
+td {
+  padding: 8px;
+  border: 1px solid #ccc;
+  background-color: white;
+  /* Additional styling as needed */
+}
+
+.custom-button {
+  background-color: white; /* White background */
+  color: black; /* Black text */
+  margin: 5px; /* Adjust the margin as needed */
+}
+

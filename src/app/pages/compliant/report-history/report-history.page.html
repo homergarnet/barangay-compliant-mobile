@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Profile Information</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Report Number</th>
+          <th scope="col">Date Received</th>
+          <th scope="col">Reported By</th>
+          <th scope="col">Type Of Crime</th>
+          <th scope="col">Description</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of receiveCrimeFilteredList">
+          <th scope="row">CR-2023 {{ data.ReportIdStr }}</th>
+          <td>{{ data.Date | date : "yyyy-MM-dd" }}</td>
+          <td>{{ data.ReporterName }}</td>
+          <td>
+            <!-- <i class="fas fa-arrow-up text-success mr-3"></i>  -->
+            {{ data.Category }}
+          </td>
+          <td>{{ data.Description }}</td>
+          <td>{{ data.Status }}</td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </div>
+  <div class="navigation-buttons">
+    <ion-button class="custom-button" (click)="onMinusCurrentPage()"
+      >Prev</ion-button
+    >
+    <ng-container *ngFor="let numberOfPagesArr of numberOfPagesArr; let i = index">
+      <ion-button
+      class="custom-button"
+
+      (click)="onClickcurrentPage(i + 1)"
+      *ngIf="numberOfPages !== 0"
+      >{{ i + 1 }}</ion-button
+    >
+    </ng-container>
+
+    <ion-button
+      class="custom-button"
+      (click)="onAddCurrentPage()"
+      *ngIf="numberOfPages !== 0"
+      >Next</ion-button
+    >
+  </div>
+</ion-content>
+<app-footer></app-footer>

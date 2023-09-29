@@ -1,12 +1,22 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Sign up</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goPrev()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-button (click)="goNext()">
+        <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <form [formGroup]="compliantSignUpForm" (ngSubmit)="onSignUp()">
     <swiper-container
+      #swiper
+      (afterinit)="swiperReady()"
       (slidechange)="swiperSlideChanged($event)"
       [loop]="false"
       [pagination]="true"
@@ -30,7 +40,7 @@
               [ngTemplateOutlet]="formError"
               [ngTemplateOutletContext]="{
             validation: 'minlength',
-            message: 'First Name should have at least 3 symbols',
+            message: 'First Name should have at least 3 Characters',
             control: compliantSignUpForm.controls['firstName']
           }"
             ></ng-container>
@@ -38,7 +48,7 @@
               [ngTemplateOutlet]="formError"
               [ngTemplateOutletContext]="{
             validation: 'maxLength',
-            message: 'First Name should have maximum 30 symbols',
+            message: 'First Name should have maximum 30 Characters',
             control: compliantSignUpForm.controls['firstName']
           }"
             ></ng-container>
@@ -64,7 +74,7 @@
               [ngTemplateOutlet]="formError"
               [ngTemplateOutletContext]="{
             validation: 'minlength',
-            message: 'Last Name should have at least 3 symbols',
+            message: 'Last Name should have at least 3 Characters',
             control: compliantSignUpForm.controls['lastName']
           }"
             ></ng-container>
@@ -72,7 +82,7 @@
               [ngTemplateOutlet]="formError"
               [ngTemplateOutletContext]="{
             validation: 'maxLength',
-            message: 'Last Name should have maximum 30 symbols',
+            message: 'Last Name should have maximum 30 Characters',
             control: compliantSignUpForm.controls['lastName']
           }"
             ></ng-container>
@@ -160,16 +170,16 @@
           }"
             ></ng-container>
           </ion-item>
+          <div class="already-have-account">
+            <p class="white-text">Already have an account?</p>
+            <ion-button
+              class="sign-in-button"
+              expand="full"
+              (click)="redirectToSignIn()"
+              >Sign In</ion-button
+            >
+          </div>
         </ion-content>
-        <div class="already-have-account">
-          <p class="white-text">Already have an account?</p>
-          <ion-button
-            class="sign-in-button"
-            expand="full"
-            (click)="redirectToSignIn()"
-            >Sign In</ion-button
-          >
-        </div>
       </swiper-slide>
       <!-- SWIPER SLIDE 2 -->
       <swiper-slide>
@@ -217,7 +227,7 @@
               [ngTemplateOutlet]="formError"
               [ngTemplateOutletContext]="{
             validation: 'minlength',
-            message: 'Contact Number should have at least 10 symbols',
+            message: 'Contact Number should have at least 10 numbers',
             control: compliantSignUpForm.controls['contactNumber']
           }"
             ></ng-container>
@@ -225,7 +235,7 @@
               [ngTemplateOutlet]="formError"
               [ngTemplateOutletContext]="{
             validation: 'maxLength',
-            message: 'Contact Number should have maximum 20 symbols',
+            message: 'Contact Number should have maximum 20 numbers',
             control: compliantSignUpForm.controls['contactNumber']
           }"
             ></ng-container>
@@ -282,16 +292,16 @@
               </ion-col>
             </ion-row>
           </ion-grid>
+          <div class="already-have-account">
+            <p class="white-text">Already have an account?</p>
+            <ion-button
+              class="sign-in-button"
+              expand="full"
+              (click)="redirectToSignIn()"
+              >Sign In</ion-button
+            >
+          </div>
         </ion-content>
-        <div class="already-have-account">
-          <p class="white-text">Already have an account?</p>
-          <ion-button
-            class="sign-in-button"
-            expand="full"
-            (click)="redirectToSignIn()"
-            >Sign In</ion-button
-          >
-        </div>
       </swiper-slide>
       <!-- SWIPER SLIDE 3 -->
       <swiper-slide>
@@ -344,38 +354,21 @@
           <ion-item>
             <ion-label position="stacked">Village/Subdivision</ion-label>
             <ion-input type="text" formControlName="village"></ion-input>
-            <ng-container
-              [ngTemplateOutlet]="formError"
-              [ngTemplateOutletContext]="{
-            validation: 'required',
-            message: 'Village is required',
-            control: compliantSignUpForm.controls['village']
-          }"
-            ></ng-container>
           </ion-item>
           <ion-item>
             <ion-label position="stacked">Unit/Floor</ion-label>
             <ion-input type="text" formControlName="unitFloor"></ion-input>
-            <ng-container
-              [ngTemplateOutlet]="formError"
-              [ngTemplateOutletContext]="{
-            validation: 'required',
-            message: 'Unit Floor is required',
-            control: compliantSignUpForm.controls['unitFloor']
-          }"
-            ></ng-container>
           </ion-item>
+          <div class="already-have-account">
+            <p class="white-text">Already have an account?</p>
+            <ion-button
+              class="sign-in-button"
+              expand="full"
+              (click)="redirectToSignIn()"
+              >Sign In</ion-button
+            >
+          </div>
         </ion-content>
-
-        <div class="already-have-account">
-          <p class="white-text">Already have an account?</p>
-          <ion-button
-            class="sign-in-button"
-            expand="full"
-            (click)="redirectToSignIn()"
-            >Sign In</ion-button
-          >
-        </div>
       </swiper-slide>
       <!-- SWIPER SLIDE 4 -->
       <swiper-slide>
@@ -384,14 +377,6 @@
           <ion-item>
             <ion-label position="stacked">Building</ion-label>
             <ion-input type="text" formControlName="building"></ion-input>
-            <ng-container
-              [ngTemplateOutlet]="formError"
-              [ngTemplateOutletContext]="{
-            validation: 'required',
-            message: 'Building is required',
-            control: compliantSignUpForm.controls['building']
-          }"
-            ></ng-container>
           </ion-item>
           <ion-item>
             <ion-select
@@ -475,6 +460,15 @@
             }"
             ></ng-container>
           </ion-item>
+          <div class="already-have-account">
+            <p class="white-text">Already have an account?</p>
+            <ion-button
+              class="sign-in-button"
+              expand="full"
+              (click)="redirectToSignIn()"
+              >Sign In</ion-button
+            >
+          </div>
         </ion-content>
       </swiper-slide>
       <!-- SWIPER SLIDE 5 -->
@@ -496,7 +490,7 @@
               [ngTemplateOutlet]="formError"
               [ngTemplateOutletContext]="{
               validation: 'minlength',
-              message: 'Email should have at least 3 symbols',
+              message: 'Email should have at least 3 Characters',
               control: compliantSignUpForm.controls['email']
             }"
             ></ng-container>
@@ -504,7 +498,7 @@
               [ngTemplateOutlet]="formError"
               [ngTemplateOutletContext]="{
               validation: 'maxLength',
-              message: 'Email should have maximum 320 symbols',
+              message: 'Email should have maximum 320 Characters',
               control: compliantSignUpForm.controls['email']
             }"
             ></ng-container>
@@ -524,7 +518,7 @@
               [ngTemplateOutlet]="formError"
               [ngTemplateOutletContext]="{
             validation: 'minlength',
-            message: 'Username should have at least 8 symbols',
+            message: 'Username should have at least 8 Characters',
             control: compliantSignUpForm.controls['username']
           }"
             ></ng-container>
@@ -532,7 +526,7 @@
               [ngTemplateOutlet]="formError"
               [ngTemplateOutletContext]="{
             validation: 'maxLength',
-            message: 'Username should have maximum 16 symbols',
+            message: 'Username should have maximum 16 Characters',
             control: compliantSignUpForm.controls['username']
           }"
             ></ng-container>
@@ -552,7 +546,7 @@
               [ngTemplateOutlet]="formError"
               [ngTemplateOutletContext]="{
             validation: 'minlength',
-            message: 'Password should have at least 3 symbols',
+            message: 'Password should have at least 8 Characters',
             control: compliantSignUpForm.controls['password']
           }"
             ></ng-container>
@@ -560,7 +554,7 @@
               [ngTemplateOutlet]="formError"
               [ngTemplateOutletContext]="{
             validation: 'maxLength',
-            message: 'Password should have maximum 100 symbols',
+            message: 'Password should have maximum 100 Characters',
             control: compliantSignUpForm.controls['password']
           }"
             ></ng-container>
@@ -578,6 +572,15 @@
               Password and Confirm password does not match!
             </span>
           </ion-item>
+          <div class="already-have-account">
+            <p class="white-text">Already have an account?</p>
+            <ion-button
+              class="sign-in-button"
+              expand="full"
+              (click)="redirectToSignIn()"
+              >Sign In</ion-button
+            >
+          </div>
         </ion-content>
       </swiper-slide>
       <!-- SWIPER SLIDE 6 -->
@@ -687,6 +690,7 @@
                   slot="start"
                   class="custom-checkbox"
                   formControlName="termsAndConditions"
+                  (ionChange)="acceptTermsAndConditionChange($event)"
                 ></ion-checkbox>
                 <ion-label class="white-text">
                   By Selecting "Create account"<br />you are confirming that<br />you
@@ -694,13 +698,18 @@
                   to San Clemente's Terms and conditions<br />and Private Policy
                 </ion-label>
               </ion-item>
-              <ion-item lines="none" class="no-padding">
-                <ion-button expand="full" color="primary" type="submit"
+            </ion-list>
+            <ion-row>
+              <ion-col size="12">
+                <ion-button
+                  class="sign-in-button"
+                  expand="full"
+                  color="primary"
+                  type="submit"
                   >Sign up</ion-button
                 >
-              </ion-item>
-            </ion-list>
-
+              </ion-col>
+            </ion-row>
             <div class="already-have-account">
               <p class="white-text">Already have an account?</p>
               <ion-button

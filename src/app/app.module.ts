@@ -4,7 +4,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
+import {
+  NativeGeocoder,
+  NativeGeocoderResult,
+  NativeGeocoderOptions,
+} from '@awesome-cordova-plugins/native-geocoder/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -35,6 +39,7 @@ import { CompliantTokenInterceptorService } from './services/compliant-token-int
   ],
   providers: [
     DatePipe,
+    NativeGeocoder,
     // {
 
     //   provide: HTTP_INTERCEPTORS,

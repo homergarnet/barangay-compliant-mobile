@@ -11,6 +11,7 @@ import { ProfileInformationPage } from './profile-information/profile-informatio
 import { FooterPage } from '../_layout/components/footer/footer.page';
 import { HomePage } from './home/home.page';
 import { AgePipe } from 'src/app/pipes/age.pipe';
+import { ReportHistoryPage } from './report-history/report-history.page';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { AgePipe } from 'src/app/pipes/age.pipe';
     LocationPage,
     AnnouncementPage,
     ProfileInformationPage,
+    ReportHistoryPage,
     FooterPage,
     AgePipe
   ],

@@ -8,6 +8,7 @@ import { ToastrCustomService } from 'src/app/services/toastr-custom.service';
 import { environment } from 'src/environments/environment';
 import { passwordMatch } from 'src/validators/passwordMatch';
 import Swal from 'sweetalert2';
+import Swiper from 'swiper';
 @Component({
   selector: 'app-compliant-sign-up',
   templateUrl: './compliant-sign-up.page.html',
@@ -15,6 +16,9 @@ import Swal from 'sweetalert2';
 })
 export class CompliantSignUpPage implements OnInit {
 
+  @ViewChild('swiper')
+  swiperRef: ElementRef | undefined;
+  swiper?: Swiper;
 
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // 1 to 31
   age: number = 0;
@@ -146,15 +150,15 @@ export class CompliantSignUpPage implements OnInit {
     ]),
 
     village: new FormControl('',[
-      Validators.required,
+
     ]),
 
     unitFloor: new FormControl('',[
-      Validators.required,
+
     ]),
 
     building: new FormControl('',[
-      Validators.required,
+
     ]),
 
     province: new FormControl('369',[
@@ -188,13 +192,13 @@ export class CompliantSignUpPage implements OnInit {
 
     password: new FormControl('', [
       Validators.required,
-      Validators.minLength(3),
+      Validators.minLength(8),
       Validators.maxLength(100)
     ]),
 
     confirmPassword: new FormControl('', [
       Validators.required,
-      Validators.minLength(3),
+      Validators.minLength(8),
       Validators.maxLength(100)
     ]),
 
@@ -293,6 +297,20 @@ export class CompliantSignUpPage implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
+  swiperReady() {
+    this.swiper = this.swiperRef?.nativeElement.swiper;
+  }
+
+  goPrev() {
+    this.swiper?.slidePrev(300);
+  }
+
+  goNext() {
+
+    this.swiper?.slideNext(300);
+
+  }
+
   swiperSlideChanged(e: any) {
     // console.log('changed: ', e)
   }
@@ -353,7 +371,7 @@ export class CompliantSignUpPage implements OnInit {
 
 
     if (isChecked) {
-      console.log('Checkbox is checked');
+      // console.log('Checkbox is checked');
       let compliantSignUpFormValue = {
 
         termsAndConditions: true,
@@ -364,7 +382,14 @@ export class CompliantSignUpPage implements OnInit {
 
 
     } else {
-      console.log('Checkbox is unchecked');
+      // console.log('Checkbox is unchecked');
+      let compliantSignUpFormValue = {
+
+        termsAndConditions: false,
+
+      }
+
+      this.compliantSignUpForm.patchValue(compliantSignUpFormValue);
     }
   }
 
@@ -397,6 +422,7 @@ export class CompliantSignUpPage implements OnInit {
       username : '',
       password : '',
       confirmPassword : '',
+      termsAndConditions: false,
     });
   }
 

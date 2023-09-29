@@ -21,4 +21,8 @@ export class FooterPage implements OnInit {
     this.router.navigate(['/pages/compliant/profile-information']);
   }
 
+  redirectToReportHistory() {
+    this.router.navigate(['/pages/compliant/report-history']);
+  }
+
 }
