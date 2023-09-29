@@ -21,12 +21,10 @@ npx cap add android
 npx cap add ios
 
 //for building android and ios
-ionic build
-ionic cap build android or
-ionic cap build ios
-npx cap sync
-
-ionic cap run android
+1.) ionic build
+2.) ionic cap build android or ionic cap build ios
+3.) npx cap sync
+4.) ionic cap run android or
 
 //to run in external device
 ionic cap run android -l --external
