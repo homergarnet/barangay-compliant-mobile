@@ -132,24 +132,30 @@ export class LocationPage implements OnInit {
       );
   }
 
-  onChangeLocationDropdown(): void {
-    this.fetchLocation();
-    let googleMaps: any = this.googleMaps;
-    const icon = {
-      url: 'assets/icon/location-pin.png',
-      scaledSize: new googleMaps.Size(50, 50),
-    };
+  removeMarkers(): void {
+
     //for removing markers
     if (this.markers.length != 0) {
       this.markers[0].setMap(null);
       this.markers.splice(0, 1);
     }
+  }
+  onChangeLocationDropdown(): void {
+    this.fetchLocation();
+    console.log("this.markers: ", this.markers)
+    let googleMaps: any = this.googleMaps;
+    const icon = {
+      url: 'assets/icon/location-pin.png',
+      scaledSize: new googleMaps.Size(50, 50),
+    };
+    this.removeMarkers();
     this.locationService
       .getLocationList(this.locationDescriptionDropdown?.value, 1, 10)
       .subscribe(
         (res) => {
           let result: any = res;
           console.log('LATLONG: ', result);
+          this.removeMarkers();
           if (result.length >= 1) {
             this.isUpdateLocation = true;
             this.latLong.lat = result[0].Lat;
@@ -166,6 +172,8 @@ export class LocationPage implements OnInit {
               heightAuto: false,
             }).then((result) => {
               if (result.isConfirmed) {
+                this.latLong.lat = this.userCurrentLat;
+                this.latLong.lng = this.userCurrentLong;
                 const marker = new googleMaps.Marker({
                   position: {
                     lat: this.userCurrentLat,
@@ -177,6 +185,10 @@ export class LocationPage implements OnInit {
                   animation: googleMaps.Animation.DROP,
                 });
                 this.markers.push(marker);
+
+                const location = new googleMaps.LatLng(this.latLong.lat, this.latLong.lng);
+                // console.log("location SCAN NEW: ", location)
+                this.addMarker(location);
                 // Handle the OK button click
               } else if (result.dismiss === Swal.DismissReason.cancel) {
                 // Handle the Cancel button click
@@ -214,6 +226,9 @@ export class LocationPage implements OnInit {
                   animation: googleMaps.Animation.DROP,
                 });
                 this.markers.push(marker);
+                const location = new googleMaps.LatLng(this.userCurrentLat, this.userCurrentLong);
+                // console.log("location SCAN NEW: ", location)
+                this.addMarker(location);
                 // Handle the OK button click
               } else if (result.dismiss === Swal.DismissReason.cancel) {
                 // Handle the Cancel button click
@@ -272,11 +287,8 @@ export class LocationPage implements OnInit {
       this.map,
       'click',
       (mapsMouseEvent) => {
-        //for removing markers
-        if (this.markers.length != 0) {
-          this.markers[0].setMap(null);
-          this.markers.splice(0, 1);
-        }
+
+        this.removeMarkers();
 
         console.log('here: na: ', mapsMouseEvent);
         console.log(mapsMouseEvent.latLng.toJSON());
@@ -298,7 +310,7 @@ export class LocationPage implements OnInit {
           (res) => {
             let result: any = res;
 
-            console.log('result: ', result);
+            // console.log('result: ', result);
             this.spinner.hide();
           },
           (error) => {
@@ -332,7 +344,7 @@ export class LocationPage implements OnInit {
           (res) => {
             let result: any = res;
 
-            console.log('result: ', result);
+            // console.log('result: ', result);
             this.spinner.hide();
           },
           (error) => {
