@@ -186,7 +186,7 @@ export class LocationPage implements OnInit {
                 });
                 this.markers.push(marker);
 
-                const location = new googleMaps.LatLng(this.latLong.lat, this.latLong.lng);
+                const location = new googleMaps.LatLng(this.userCurrentLat, this.userCurrentLong);
                 // console.log("location SCAN NEW: ", location)
                 this.addMarker(location);
                 // Handle the OK button click
