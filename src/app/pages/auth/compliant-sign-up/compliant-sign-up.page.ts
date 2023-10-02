@@ -337,6 +337,8 @@ export class CompliantSignUpPage implements OnInit {
 
         if(error.error === "User Already Exist") {
           this.toastrCustomService.showError(error.error, "Error");
+        } else if(error.error === "Email Already Exist") {
+          this.toastrCustomService.showError(error.error, "Error");
         } else {
           this.toastrCustomService.showError("Unavailable to use app", "Error");
         }
