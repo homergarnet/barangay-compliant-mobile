@@ -97,7 +97,7 @@ export class LocationPage implements OnInit {
     this.locationService
       .receiveCrimeList(
         '',
-        '',
+        'not closed completed',
         '',
         currentPageVal == 0 ? this.currentPage : currentPageVal,
         resultPerPageVal == 0 ? this.resultPerPage : resultPerPageVal
@@ -150,7 +150,7 @@ export class LocationPage implements OnInit {
     };
     this.removeMarkers();
     this.locationService
-      .getLocationList(this.locationDescriptionDropdown?.value, 1, 10)
+      .getLocationList('not closed completed', this.locationDescriptionDropdown?.value, 1, 10)
       .subscribe(
         (res) => {
           let result: any = res;
