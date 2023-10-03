@@ -144,6 +144,17 @@ export class AuthService {
     );
   }
 
+  sendForgotPassword(
+    ToEmail: string,
+
+  ): Observable<any> {
+    return this.http.post(
+      this.API_URL + 'api/send',
+      { ToEmail },
+      { ...httpOptions, responseType: 'text' }
+    );
+  }
+
   // JWT
   setSession(result: any, pageType: string): void {
     this.loginTypeSubject$.next(pageType);
