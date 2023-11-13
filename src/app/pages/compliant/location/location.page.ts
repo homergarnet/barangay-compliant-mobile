@@ -19,6 +19,8 @@ import {
   NativeGeocoderResult,
   NativeGeocoderOptions,
 } from '@awesome-cordova-plugins/native-geocoder/ngx';
+import { SignalrService } from 'src/app/services/signalr.service';
+import { LocalNotifications, ScheduleOptions } from '@capacitor/local-notifications';
 
 @Component({
   selector: 'app-location',
@@ -62,11 +64,33 @@ export class LocationPage implements OnInit {
     private toastrCustomService: ToastrCustomService,
     private spinner: NgxSpinnerService,
     private locationService: LocationService,
-    private nativegeocoder: NativeGeocoder
+    private nativegeocoder: NativeGeocoder,
+    private signalRService: SignalrService
   ) {}
 
   ngOnInit(): void {
     this.initialDescriptionList();
+    this.notification();
+  }
+
+  notification(): void {
+    this.signalRService.message$.subscribe((message) => {
+      let options: ScheduleOptions = {
+        notifications: [
+          {
+            id: 111,
+            title: 'reminder Notification',
+            body: message,
+            largeBody: message,
+            summaryText: 'Exciting offers !!!',
+          },
+        ],
+      };
+
+      try {
+        LocalNotifications.schedule(options);
+      } catch (ex) {}
+    });
   }
 
   async fetchLocation() {

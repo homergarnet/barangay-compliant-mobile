@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalNotifications, ScheduleOptions } from '@capacitor/local-notifications';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LocationService } from 'src/app/services/location.service';
+import { SignalrService } from 'src/app/services/signalr.service';
 import { ToastrCustomService } from 'src/app/services/toastr-custom.service';
 import Swal from 'sweetalert2';
 
@@ -21,11 +23,33 @@ export class ReportHistoryPage implements OnInit {
   constructor(
     private locationService: LocationService,
     private toastrCustomService: ToastrCustomService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private signalRService: SignalrService
   ) {}
 
   ngOnInit() {
     this.initialReceiveCrimeList();
+    this.notification();
+  }
+
+  notification(): void {
+    this.signalRService.message$.subscribe((message) => {
+      let options: ScheduleOptions = {
+        notifications: [
+          {
+            id: 111,
+            title: 'reminder Notification',
+            body: message,
+            largeBody: message,
+            summaryText: 'Exciting offers !!!',
+          },
+        ],
+      };
+
+      try {
+        LocalNotifications.schedule(options);
+      } catch (ex) {}
+    });
   }
 
   initialReceiveCrimeList(

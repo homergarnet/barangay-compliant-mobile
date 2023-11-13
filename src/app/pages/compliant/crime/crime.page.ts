@@ -5,6 +5,8 @@ import { DatePipe } from '@angular/common';
 import { CrimeService } from 'src/app/services/crime.service';
 import Swal from 'sweetalert2';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SignalrService } from 'src/app/services/signalr.service';
+import { LocalNotifications, ScheduleOptions } from '@capacitor/local-notifications';
 
 @Component({
   selector: 'app-crime',
@@ -32,11 +34,33 @@ export class CrimePage implements OnInit {
     private toastrCustomService: ToastrCustomService,
     private crimeService: CrimeService,
     private spinner: NgxSpinnerService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private signalRService: SignalrService
   ) {}
 
   ngOnInit() {
     this.initialCrime();
+    this.notification();
+  }
+
+  notification(): void {
+    this.signalRService.message$.subscribe((message) => {
+      let options: ScheduleOptions = {
+        notifications: [
+          {
+            id: 111,
+            title: 'reminder Notification',
+            body: message,
+            largeBody: message,
+            summaryText: 'Exciting offers !!!',
+          },
+        ],
+      };
+
+      try {
+        LocalNotifications.schedule(options);
+      } catch (ex) {}
+    });
   }
 
   initialCrime(

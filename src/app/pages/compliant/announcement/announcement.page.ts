@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  LocalNotifications,
+  ScheduleOptions,
+} from '@capacitor/local-notifications';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AnnouncementService } from 'src/app/services/announcement.service';
+import { SignalrService } from 'src/app/services/signalr.service';
 import { ToastrCustomService } from 'src/app/services/toastr-custom.service';
 import Swal from 'sweetalert2';
 
@@ -10,7 +15,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./announcement.page.scss'],
 })
 export class AnnouncementPage implements OnInit {
-
   announcements = [];
   announcementList: any = [];
   currentPage: number = 1;
@@ -18,17 +22,37 @@ export class AnnouncementPage implements OnInit {
   totalAnnouncementCount: number = 0;
 
   constructor(
-
     private announcementService: AnnouncementService,
     private toastrCustomService: ToastrCustomService,
     private spinner: NgxSpinnerService,
-
+    private signalRService: SignalrService
   ) {
     this.loadData(null);
   }
 
   ngOnInit(): void {
     this.initialAnnouncement();
+    this.notification();
+  }
+
+  notification(): void {
+    this.signalRService.message$.subscribe((message) => {
+      let options: ScheduleOptions = {
+        notifications: [
+          {
+            id: 111,
+            title: 'reminder Notification',
+            body: message,
+            largeBody: message,
+            summaryText: 'Exciting offers !!!',
+          },
+        ],
+      };
+
+      try {
+        LocalNotifications.schedule(options);
+      } catch (ex) {}
+    });
   }
 
   initialAnnouncement(
@@ -48,14 +72,13 @@ export class AnnouncementPage implements OnInit {
           let result: any = res;
           this.totalAnnouncementCount = result.AnnouncementTotalCount;
           // console.log("result: ", result)
-          result.AnnouncementDescription.forEach((item, index)=>{
-
+          result.AnnouncementDescription.forEach((item, index) => {
             this.announcementList.push({
               Id: item.Id,
               Description: item.Description,
               DateTimeCreated: item.DateTimeCreated,
             });
-          })
+          });
           this.currentPage++;
 
           this.spinner.hide();
@@ -85,7 +108,6 @@ export class AnnouncementPage implements OnInit {
   loadData(event) {
     // Simulate loading data from an API or other source
     setTimeout(() => {
-
       this.initialAnnouncement(0);
 
       if (event) {
@@ -99,5 +121,4 @@ export class AnnouncementPage implements OnInit {
       this.currentPage++;
     }, 1000);
   }
-
 }
