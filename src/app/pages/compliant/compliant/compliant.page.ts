@@ -214,7 +214,7 @@ export class CompliantPage implements OnInit {
 
 
           this.resetFields();
-          this.toastrCustomService.showSuccess('Your report is successully created!');
+          this.toastrCustomService.showSuccess('Your report is successully created! please proceed in location to pin the location of your report.');
           this.spinner.hide();
 
         }, error => {
